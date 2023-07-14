@@ -21,5 +21,5 @@ from notes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('notes.urls'))
+    path('api/', include('notes.urls'))
 ]
