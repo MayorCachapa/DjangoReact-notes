@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { ListItem } from '../components/ListItem';
 
 export const NotesListPage = () => {
   let [notes, setNotes] = useState([]);
@@ -16,7 +17,11 @@ export const NotesListPage = () => {
 
   return (
     <div>
-      AllNotes      
+      <div>
+        {notes.map((note, index) => {
+          return <ListItem key={index} note={note} />
+        })}
+      </div>      
     </div>
   )
 }
