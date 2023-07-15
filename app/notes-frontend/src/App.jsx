@@ -8,7 +8,8 @@ import './App.css'
 function App() {
 
   return (
-    <div>
+    <div className='container dark'>
+      <div className='app'>
       <Header />
       <Router>
           <Routes>
@@ -16,6 +17,7 @@ function App() {
             <Route path="note/:id" element={<NotePage />} />
           </Routes>
       </Router>
+      </div>
     </div>
   )
 }
