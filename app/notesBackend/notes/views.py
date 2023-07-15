@@ -63,7 +63,7 @@ def updateNote(request, pk):
     serializer = NoteSerializer(instance=note, data=data)
 
     if serializer.is_valid():
-        serializer.save
+        serializer.save()
 
     return Response(serializer.data)
 
