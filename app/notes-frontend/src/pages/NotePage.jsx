@@ -5,23 +5,37 @@ import { useParams } from 'react-router'
 export const NotePage = () => {
     const { id } = useParams();
     const [note, setNote] = useState(null);
-
+    
     useEffect(() => {
         getNote()
     }, [id])
 
     const getNote = async () => {
-        let response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`)
-        let data = await response.json()
+        const response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`)
+        const data = await response.json()
         return setNote(data)
     }
 
+    const updateNote = async () => {
+        const response = await fetch(
+            `http://127.0.0.1:8000/api/notes/${id}/update/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(note)
+            })
+    }
+
+    const handleSubmit = () => {
+        updateNote()
+    }
     return (
         <div className='note'>
             <div className='mx-3 font-bold text-2xl text-orange-500 py-1'>
                 <h2>{note?.title}</h2>
             <div className='flex mx-auto py-5'>
-                <Link to="/" className='flex justify-start'>
+                <Link onClick={handleSubmit} to="/" className='flex justify-start'>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32">
                         <title>chevron-left</title>
                         <path d="M11 16l13-13v-3l-16 16 16 16v-3l-13-13z"></path>
@@ -31,7 +45,7 @@ export const NotePage = () => {
             </div>
             </div>
             <div>
-                <textarea defaultValue={note?.description}></textarea>            
+                <textarea onChange={(e) => {setNote({...note, 'description': e.target.value})}} defaultValue={note?.description}></textarea>            
             </div>
         </div>
     )
