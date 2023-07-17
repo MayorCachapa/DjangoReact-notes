@@ -24,7 +24,19 @@ export const NotePage = () => {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(note)
-            })
+            }
+        )
+    }
+
+    const deleteNote = async () => {
+        await fetch(
+            `http://127.0.0.1:8000/api/notes/${id}/delete/`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }
+        )
     }
 
     const handleCheckboxChange = () => {
@@ -36,6 +48,11 @@ export const NotePage = () => {
 
     const handleSubmit = () => {
         updateNote()
+    }
+
+
+    const handleDelete = () => {
+        deleteNote()
     }
     return (
         <div className='note'>
@@ -54,12 +71,15 @@ export const NotePage = () => {
             <div>
                 <textarea style={{ width: '100%', height: '350px' }} onChange={(e) => {setNote({...note, 'description': e.target.value})}} defaultValue={note?.description}></textarea>            
             </div>
-            <div className='flex justify-start align-bottom'>
-                <Link onClick={handleSubmit} to="/" className='flex justify-start'>
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 32 32">
-                        <title>chevron-left</title>
-                        <path d="M11 16l13-13v-3l-16 16 16 16v-3l-13-13z"></path>
+            <div className='grid grid-cols-2 justify-between align-bottom'>
+                <Link onClick={handleSubmit} to="/" className='text-orange-700 text-xl font-extrabold py-1 mx-3 grid grid-cols-2 gap-4 justify-start'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
                     </svg>
+
+                </Link>
+                <Link onClick={handleDelete} className='grid justify-end mx-2' to='/'>
+                    <button  className='px-3 text-slate-50 text-bold bg-orange-700 uppercase rounded-lg'>Delete</button>
                 </Link>
             </div>
         </div>
