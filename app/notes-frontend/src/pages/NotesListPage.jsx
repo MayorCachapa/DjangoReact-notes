@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ListItem } from '../components/ListItem';
+import { ListItem } from '../components/ListItem'
+import AddButton from '../components/AddButton';
 
 export const NotesListPage = () => {
   let [notes, setNotes] = useState([]);
@@ -25,7 +26,8 @@ export const NotesListPage = () => {
         {notes.map((note, index) => {
           return <ListItem key={index} note={note} />
         })}
-      </div>      
+      </div>
+      <AddButton />
     </div>
   )
 }

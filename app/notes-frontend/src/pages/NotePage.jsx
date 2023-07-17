@@ -11,9 +11,13 @@ export const NotePage = () => {
     }, [id])
 
     const getNote = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`)
-        const data = await response.json()
-        return setNote(data)
+        if (id === 'new') {
+            return
+        } else {
+            const response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`)
+            const data = await response.json()
+            return setNote(data)
+        }
     }
 
     const updateNote = async () => {
@@ -78,8 +82,10 @@ export const NotePage = () => {
                     </svg>
 
                 </Link>
-                <Link onClick={handleDelete} className='grid justify-end mx-2' to='/'>
-                    <button  className='px-3 text-slate-50 text-bold bg-orange-700 uppercase rounded-lg'>Delete</button>
+                <Link onClick={handleDelete} className='floating-button text-white' to='/'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
                 </Link>
             </div>
         </div>
