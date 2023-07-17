@@ -12,9 +12,11 @@ export const NotesListPage = () => {
   const getNotes = async () => {
     let response = await fetch('http://127.0.0.1:8000/api/notes/')
     let data = await response.json()
-    console.log('DATA:', data)
+    
     setNotes(data)
   }
+
+    // Function to retrieve the saved CSRF token
 
   return (
     <div className='notes'>

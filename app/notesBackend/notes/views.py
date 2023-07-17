@@ -64,8 +64,9 @@ def updateNote(request, pk):
 
     if serializer.is_valid():
         serializer.save()
+        return Response(serializer.data, status=201)
 
-    return Response(serializer.data)
+    return Response(serializer.data, status=400)
 
 
 @api_view(['DELETE'])
@@ -74,6 +75,22 @@ def deleteNote(request, pk):
     note.delete()
 
     return Response('Note deleted successfully')
+
+
+@api_view(['POST'])
+def createNote(request):
+    data = request.data
+    note = Note.objects.create(
+        title=data['title'],
+        description=data['description'],
+    )
+    serializer = NoteSerializer(note, data=data, many=False)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    
+    return Response(serializer.data, status=400)
     
 
 # class NotesView(viewsets.ModelViewSet):

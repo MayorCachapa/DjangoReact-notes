@@ -32,6 +32,17 @@ export const NotePage = () => {
         )
     }
 
+    const createNote = async () => {
+        await fetch(
+           `http://127.0.0.1:8000/api/notes/create/`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            }, body: JSON.stringify(note)
+           } 
+        )
+    }
+
     const deleteNote = async () => {
         await fetch(
             `http://127.0.0.1:8000/api/notes/${id}/delete/`, {
@@ -51,7 +62,7 @@ export const NotePage = () => {
     }
 
     const handleSubmit = () => {
-        updateNote()
+        id !== 'new' ? updateNote() : createNote();
     }
 
 
@@ -61,7 +72,7 @@ export const NotePage = () => {
     return (
         <div className='note'>
             <div className='flex mx-2 font-bold text-2xl text-orange-500 py-1'>
-                <textarea onChange={({target}) => {setNote({...note, 'title': target.value})}} style={{ width: '100%', height: '50px' }} defaultValue={note?.title} ></textarea>
+                <textarea onChange={({target}) => {setNote({...note, 'title': target.value})}} style={{ width: '100%', height: '50px' }} value={note?.title} ></textarea>
             <div className='flex mx-auto py-5'>
                 <h3 className='text-orange-400 font-semibold py-1 mx-2 text-sm flex justify-start align-top'>
                     Completed: {note?.completed ? 'Yes' : 'No'}
@@ -73,7 +84,7 @@ export const NotePage = () => {
             </div>
             </div>
             <div>
-                <textarea style={{ width: '100%', height: '350px' }} onChange={(e) => {setNote({...note, 'description': e.target.value})}} defaultValue={note?.description}></textarea>            
+                <textarea style={{ width: '100%', height: '350px' }} onChange={(e) => {setNote({...note, 'description': e.target.value})}} value={note?.description}></textarea>            
             </div>
             <div className='grid grid-cols-2 justify-between align-bottom'>
                 <Link onClick={handleSubmit} to="/" className='text-orange-700 text-xl font-extrabold py-1 mx-3 grid grid-cols-2 gap-4 justify-start'>
